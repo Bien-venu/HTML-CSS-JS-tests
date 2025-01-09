@@ -46,4 +46,4 @@ This project contains two separate web applications:
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/todo-book-list-app.git
+   https://github.com/Bien-venu/HTML-CSS-JS-tests.git
