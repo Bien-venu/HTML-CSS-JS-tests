@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List & Book List App</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f4f8;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        .todo-app, .book-app {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1em;
+            width: 90%;
+            max-width: 600px;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 0.5em;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin: 0.5em 0;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .book-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1em;
+            margin-bottom: 1em;
+            text-align: left;
+        }
+
+        .book-card h3 {
+            margin: 0 0 0.5em 0;
+        }
+
+        .book-card p {
+            margin: 0.5em 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Todo List</h1>
+    </header>
+    <section class="todo-app">
+        <input type="text" id="todo-input" placeholder="Add a new todo">
+        <button id="add-todo">Add Todo</button>
+        <ul id="todo-list"></ul>
+    </section>
+
+    <header>
+        <h1>My Book List</h1>
+    </header>
+    <section class="book-app">
+        <button id="add-book">Add Book</button>
+        <div id="book-list"></div>
+    </section>
+
+    <script>
+        document.getElementById('add-todo').addEventListener('click', function() {
+            const todoInput = document.getElementById('todo-input');
+            const todoText = todoInput.value.trim();
+            if (todoText) {
+                const todoList = document.getElementById('todo-list');
+                const li = document.createElement('li');
+                li.textContent = todoText;
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.addEventListener('click', function() {
+                    const newTodoText = prompt('Edit your todo:', todoText);
+                    if (newTodoText) {
+                        li.firstChild.textContent = newTodoText;
+                    }
+                });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', function() {
+                    todoList.removeChild(li);
+                });
+
+                li.appendChild(editButton);
+                li.appendChild(deleteButton);
+                todoList.appendChild(li);
+                todoInput.value = '';
+            }
+        });
+
+        document.getElementById('add-book').addEventListener('click', function() {
+            const title = prompt('Enter book title:');
+            const author = prompt('Enter book author:');
+            const description = prompt('Enter book description:');
+
+            if (title && author && description) {
+                const bookList = document.getElementById('book-list');
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+
+                const bookTitle = document.createElement('h3');
+                bookTitle.textContent = title;
+
+                const bookAuthor = document.createElement('p');
+                bookAuthor.textContent = `Author: ${author}`;
+
+                const bookDescription = document.createElement('p');
+                bookDescription.textContent = description;
+
+                bookCard.appendChild(bookTitle);
+                bookCard.appendChild(bookAuthor);
+                bookCard.appendChild(bookDescription);
+                bookList.appendChild(bookCard);
+            }
+        });
+    </script>
+</body>
+</html>
